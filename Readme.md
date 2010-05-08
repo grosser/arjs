@@ -4,6 +4,7 @@ ActiveRecord for js using html5 localstorage.
  - u = User.new({name:'xxx'}); u.name == 'xxx'; u.save
  - User.create({name: 'Bla blub', foo: 1111})
  - User.all(function(users){ ... })
+ - User.all({conditions: "name = 1", limit: 1, offset: 2, having: .... }, function(users){ ... })
  - User.find(id, function(user){ ... })
 
 ### Using Example:
@@ -12,5 +13,7 @@ ActiveRecord for js using html5 localstorage.
 
 TODO
 ====
- - all / first / find with parameters like order etc
+ - first / count / sum
+ - joining
+ - associations (belongsTo / HasMany)
  - properly escape single quotes (atm they are replaced by "`")
