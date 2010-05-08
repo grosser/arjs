@@ -13,4 +13,4 @@ ActiveRecord for js using html5 localstorage.
 TODO
 ====
  - all / first / find with parameters like order etc
- - proper value escaping
+ - properly escape single quotes (atm they are replaced by "`")

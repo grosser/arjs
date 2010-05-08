@@ -18,7 +18,7 @@
       var u1 = User.create({name: 'Michael', foo: 111, bar: 'TEXTTTT'})
       var u2 = User.create({name: 'Michael2', foo: 222, bar: 'TEXTTTT222'})
 
-      u2.name = "Updated!!"
+      u2.name = 'Updated!!'
       u2.save()
 
       User.all(function(users){
