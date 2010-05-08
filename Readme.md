@@ -14,4 +14,3 @@ TODO
 ====
  - all / first / find with parameters like order etc
  - proper value escaping
- - something like .ownProperties when convertig objects to records, so only real attributes are copied 
