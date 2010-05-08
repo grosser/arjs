@@ -3,16 +3,26 @@
     <script src="vendor/js.class/core.js"></script>
     <script src="lib/ar.js"></script>
     <script>
-      // comment out those lines after first page load 
-//      AR.connection().execute("CREATE TABLE User (id REAL UNIQUE, name STRING, power INT)")
-//      AR.connection().execute("INSERT INTO User (id, name, power) VALUES (12, 'MICHAEL', 111)")
-//      AR.connection().execute("INSERT INTO User (id, name, power) VALUES (14, 'MICHAEL', 111)")
-      User = new JS.Class(AR, {extend: {tableName:'User'}})
-      User.all(function(users){
-        users.forEach(function(u){
-          alert(u.name)
-        })
-      })
+      AR.connection().execute("DROP TABLE User")
+      User = new JS.Class(AR, {extend: {
+        tableName:'User',
+        columns: [
+          ['id', 'REAL UNIQUE'],
+          ['name', 'STRING'],
+          ['foo', 'INTEGER'],
+          ['bar', 'TEXT']
+        ]
+      }})
+      User.createTable()
+
+      AR.connection().execute("INSERT INTO User (id, name, foo, bar) VALUES (12, 'MICHAEL', 111, 'MUUUUU')")
+      AR.connection().execute("INSERT INTO User (id, name, foo, bar) VALUES (14, 'MICHAEL', 111, 'MAAAAA')")
+
+//      User.all(function(users){
+//        users.forEach(function(u){
+//          alert(u.name)
+//        })
+//      })
     </script>
   </head>
   <body>
