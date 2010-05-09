@@ -1,0 +1,67 @@
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <link rel="stylesheet" href="qunit.css" type="text/css" />
+  <script src="qunit.js"></script>
+
+  <script src="../vendor/js.class/core.js"></script>
+  <script src="../lib/ar.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      module("Base")
+
+      test("it can connect to db", function() {
+        ok(AR.connection());
+      });
+
+      AR.connection().execute("DROP TABLE User")
+      User = new JS.Class(AR, {extend: {
+        tableName:'User',
+        columns: [
+          ['id', 'REAL UNIQUE'],
+          ['name', 'STRING'],
+          ['foo', 'INTEGER'],
+          ['bar', 'TEXT']
+        ]
+      }})
+      User.createTable()
+
+      test("no users in empty db",function(){
+        stop()
+        User.all(function(result){
+          start()
+          same(result, [])
+        })
+      })
+
+      module("create")
+
+      test("new records have no id", function(){
+        equal((new User({name: 'pete'})).id, null)
+      })
+
+      test("creating a record creates an id", function(){
+        ok(User.create({name: 'pete'}).id)
+      })
+
+      test("creating a record inserts it into db", function(){
+        var id = User.create({name: 'pete'}).id
+        stop()
+        User.find(id, function(user){
+          start()
+          equal(user.name, 'pete')
+        })
+      })
+    });
+  </script>
+
+</head>
+<body>
+<h1 id="qunit-header">QUnit example</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+</body>
+</html>
