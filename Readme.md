@@ -37,4 +37,3 @@ TODO
  - first / count / sum
  - joining
  - associations (belongsTo / HasMany)
- - properly escape single quotes (atm they are replaced by "`")

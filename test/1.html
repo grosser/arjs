@@ -72,6 +72,14 @@
           equal(user.name, 'pete')
         })
       })
+
+      asyncTest("it escapes values correctly", function(){
+        var id = User.create({name: '"'+"'"}).id
+        User.find(id, function(user){
+          start()
+          equal(user.name, '"'+"'")
+        })
+      })
     });
   </script>
 
