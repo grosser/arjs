@@ -1,5 +1,8 @@
 Ruby on Rails like ActiveRecord for javascript using html5 localstorage on JS.Class
 
+Every request is asynchronous, so you do not get a result back, but provide a callback that is called when the query is finished.
+Later Sync should be used, but so far openDatabaseSync is not implemented in any browser.
+
 Just some basic plumbing done(see below), help appreciated!
 
  - AR.connection().execute('SQL', function(resultAsHash){ ... })

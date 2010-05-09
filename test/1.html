@@ -10,8 +10,6 @@
 
   <script>
     $(document).ready(function(){
-      module("Base")
-
       test("it can connect to db", function() {
         ok(AR.connection());
       });
@@ -28,15 +26,28 @@
       }})
       User.createTable()
 
-      test("no users in empty db",function(){
-        stop()
+      module("all",{setup: function(){
+        expect(1) // there should be one test in every assertion
+        User.deleteAll(function(){
+        })
+      }})
+
+      asyncTest("no users in empty db",function(){
         User.all(function(result){
           start()
           same(result, [])
         })
       })
 
-      module("create")
+      asyncTest("deleteAll removes all records", function(){
+        User.create()
+        User.deleteAll(function(){
+        })
+        User.all(function(result){
+          same(result, [])
+          start()
+        })
+      })
 
       test("new records have no id", function(){
         equal((new User({name: 'pete'})).id, null)
@@ -46,9 +57,16 @@
         ok(User.create({name: 'pete'}).id)
       })
 
-      test("creating a record inserts it into db", function(){
+      asyncTest("creating a record creates only one", function(){
+        User.create({name: 'pete'})
+        User.all(function(users){
+          start()
+          equal(users.length, 1)
+        })
+      })
+
+      asyncTest("creating a record inserts it into db", function(){
         var id = User.create({name: 'pete'}).id
-        stop()
         User.find(id, function(user){
           start()
           equal(user.name, 'pete')
